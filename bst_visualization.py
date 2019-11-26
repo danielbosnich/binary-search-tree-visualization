@@ -326,14 +326,20 @@ class TreeDisplay():
                          height=node_size)
 
         if node.left is not None:
-            node.left.depth = node.depth + 1
-            # TODO: Check if node depth exceeds maximum
+            if node.depth >= 6:
+                logging.warning("Reached max node depth for the visualization")
+                return
+            else:
+                node.left.depth = node.depth + 1
             node.left.x_pos = node.x_pos - depth_x_diff[node.left.depth] - node_size
             self.update_display(node.left)
 
         if node.right is not None:
-            node.right.depth = node.depth + 1
-            # TODO: Check if node depth exceeds maximum
+            if node.depth >= 6:
+                logging.warning("Reached max node depth for the visualization")
+                return
+            else:
+                node.right.depth = node.depth + 1
             node.right.x_pos = node.x_pos + depth_x_diff[node.right.depth] + 50 * depth_size[node.depth]
             self.update_display(node.right)
 
